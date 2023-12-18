@@ -7,7 +7,7 @@ use std::process::Command; // Run programs
 #[test]
 fn file_doesnt_exist() -> Result<()> {
     // When we run our program with a file that doesn't exist, we should exit with a non-zero.
-    let mut cmd = Command::cargo_bin("grrs")?;
+    let mut cmd = Command::cargo_bin("takaiyuk-grrs")?;
 
     cmd.arg("foobar").arg("test/file/doesnt/exist");
     cmd.assert()
@@ -23,7 +23,7 @@ fn find_content_in_file() -> Result<()> {
     let file = assert_fs::NamedTempFile::new("find_content_in_file.txt")?;
     file.write_str("A test\nActual content\nMore content\nAnother test")?;
 
-    let mut cmd = Command::cargo_bin("grrs")?;
+    let mut cmd = Command::cargo_bin("takaiyuk-grrs")?;
     cmd.arg("test").arg(file.path());
     cmd.assert()
         .success()
@@ -38,7 +38,7 @@ fn find_empty_string_in_file() -> Result<()> {
     let file = assert_fs::NamedTempFile::new("find_empty_string_in_file.txt")?;
     file.write_str("A test\nActual content\nMore content\nAnother test")?;
 
-    let mut cmd = Command::cargo_bin("grrs")?;
+    let mut cmd = Command::cargo_bin("takaiyuk-grrs")?;
     cmd.arg("").arg(file.path());
     cmd.assert().success().stdout(predicate::str::contains(
         "A test\nActual content\nMore content\nAnother test",
