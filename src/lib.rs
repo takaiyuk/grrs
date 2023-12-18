@@ -2,7 +2,7 @@ pub fn find_matches(content: &str, pattern: &str, mut writer: impl std::io::Writ
     for line in content.lines() {
         if line.contains(pattern) {
             if let Err(e) = writeln!(writer, "{}", line) {
-                eprintln!("Couldn't write to {}: {}", "stdout", e);
+                eprintln!("Couldn't write to stdout: {}", e);
             }
         }
     }
