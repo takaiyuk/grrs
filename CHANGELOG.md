@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.1.2](https://github.com/takaiyuk/grrs/compare/v0.1.1...v0.1.2) - 2023-12-18
+- Remove double quotes by @takaiyuk in https://github.com/takaiyuk/grrs/pull/18
+
 ## [v0.1.1](https://github.com/takaiyuk/grrs/compare/v0.1.0...v0.1.1) - 2023-12-18
 - Remove comment out from release yaml by @takaiyuk in https://github.com/takaiyuk/grrs/pull/6
 - Fix by @takaiyuk in https://github.com/takaiyuk/grrs/pull/8
