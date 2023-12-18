@@ -39,4 +39,5 @@
 [tagpr]
 	vPrefix = true
 	releaseBranch = main
-	versionFile = Cargo.lock
+	versionFile = Cargo.toml
+	command = "cargo check"
