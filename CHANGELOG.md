@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.1.4](https://github.com/takaiyuk/grrs/compare/v0.1.3...v0.1.4) - 2023-12-18
+- Fix tags pattern by @takaiyuk in https://github.com/takaiyuk/grrs/pull/22
+
 ## [v0.1.3](https://github.com/takaiyuk/grrs/compare/v0.1.2...v0.1.3) - 2023-12-18
 - Not commit when no change in Cargo.lock by @takaiyuk in https://github.com/takaiyuk/grrs/pull/20
 
