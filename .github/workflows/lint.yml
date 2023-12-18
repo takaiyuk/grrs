@@ -1,0 +1,52 @@
+# Adapted from:
+# - test and rustfmt: https://github.com/actions-rust-lang/setup-rust-toolchain/tree/c7e1de28469b16b21a170a200a7a9e810bb5cdff
+# - tarpaulin: https://github.com/xd009642/tarpaulin/tree/4d0273ff3d6a4b5d00586436dde2094db1aeb345#github-actions
+
+name: "Test Suite"
+
+on: [push]
+
+jobs:
+  # Run tests with tarpaulin
+  test:
+    name: cargo test
+    runs-on: ubuntu-latest
+    container:
+      image: xd009642/tarpaulin:develop
+      options: --security-opt seccomp=unconfined
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+      - run: cargo test --all-features
+      - name: Generate code coverage
+        run: |
+          cargo tarpaulin --all-features --workspace --timeout 120 --out Xml --skip-clean
+      - name: Upload to codecov.io
+        uses: codecov/codecov-action@v3
+        with:
+          fail_ci_if_error: true
+
+  # Check formatting with rustfmt
+  formatting:
+    name: cargo fmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Ensure rustfmt is installed and setup problem matcher
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          components: rustfmt
+      - name: Rustfmt Check
+        uses: actions-rust-lang/rustfmt@v1
+
+  # Check for clippy warnings
+  clippy:
+    name: cargo clippy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Ensure clippy is installed and setup problem matcher
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          components: clippy
+      - run: cargo clippy --all-features -- -D warnings
