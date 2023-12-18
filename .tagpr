@@ -40,4 +40,4 @@
 	vPrefix = true
 	releaseBranch = main
 	versionFile = Cargo.toml
-	command = "cargo check"
+	command = "cargo check && git add Cargo.lock"
