@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.1.6](https://github.com/takaiyuk/grrs/compare/v0.1.5...v0.1.6) - 2023-12-19
+- Hotfix/release workflow by @takaiyuk in https://github.com/takaiyuk/grrs/pull/28
+
 ## [v0.1.5](https://github.com/takaiyuk/grrs/compare/v0.1.4...v0.1.5) - 2023-12-19
 - Hotfix/pat by @takaiyuk in https://github.com/takaiyuk/grrs/pull/24
 - Revert "Run cargo check before tagpr" by @takaiyuk in https://github.com/takaiyuk/grrs/pull/26
