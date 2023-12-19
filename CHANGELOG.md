@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.1.9](https://github.com/takaiyuk/grrs/compare/v0.1.8...v0.1.9) - 2023-12-19
+- Modify environment variables by @takaiyuk in https://github.com/takaiyuk/grrs/pull/34
+
 ## [v0.1.8](https://github.com/takaiyuk/grrs/compare/v0.1.7...v0.1.8) - 2023-12-19
 - Add env for release to github by @takaiyuk in https://github.com/takaiyuk/grrs/pull/32
 
