@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.1.8](https://github.com/takaiyuk/grrs/compare/v0.1.7...v0.1.8) - 2023-12-19
+- Add env for release to github by @takaiyuk in https://github.com/takaiyuk/grrs/pull/32
+
 ## [v0.1.7](https://github.com/takaiyuk/grrs/compare/v0.1.6...v0.1.7) - 2023-12-19
 - downgrade upload-artifact version by @takaiyuk in https://github.com/takaiyuk/grrs/pull/30
 
