@@ -7,25 +7,49 @@ on:
 
 jobs:
   release:
-    name: Release ${{ matrix.target }} ${{ matrix.archive }}
+    name: Release
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - target: x86_64-unknown-linux-musl
-            archive: tar.gz tar.xz
-          - target: x86_64-apple-darwin
-            archive: tar.gz zip
     steps:
       - uses: actions/checkout@v4
-      - name: Compile and release
+
+      - name: Compile
+        id: compile
         uses: rust-build/rust-build.action@v1.4.4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          RUSTTARGET: ${{ matrix.target }}
-          ARCHIVE_TYPES: ${{ matrix.archive }}
+          RUSTTARGET: x86_64-unknown-linux-musl
+          ARCHIVE_TYPES: tar.gz
+          UPLOAD_MODE: none
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Binary
+          path: |
+            ${{ steps.compile.outputs.BUILT_ARCHIVE }}
+            ${{ steps.compile.outputs.BUILT_CHECKSUM }}
+
+      - name: Compile
+        id: compile2
+        uses: rust-build/rust-build.action@v1.4.4
+        with:
+          RUSTTARGET: x86_64-apple-darwin
+          ARCHIVE_TYPES: tar.gz
+          UPLOAD_MODE: none
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Binary
+          path: |
+            ${{ steps.compile2.outputs.BUILT_ARCHIVE }}
+            ${{ steps.compile2.outputs.BUILT_CHECKSUM }}
+
+      - name: Release
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          gh release upload ${{ github.ref }} ${{ steps.compile.outputs.BUILT_ARCHIVE }}
+          gh release upload ${{ github.ref }} ${{ steps.compile.outputs.BUILT_CHECKSUM }}
+          gh release upload ${{ github.ref }} ${{ steps.compile2.outputs.BUILT_ARCHIVE }}
+          gh release upload ${{ github.ref }} ${{ steps.compile2.outputs.BUILT_CHECKSUM }}
 
   publish:
     name: Publish to crates.io
@@ -33,5 +57,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions-rust-lang/setup-rust-toolchain@v1
-      - run: |
-          cargo publish --allow-dirty
+      - run: cargo publish --allow-dirty
+        env:
+            CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
