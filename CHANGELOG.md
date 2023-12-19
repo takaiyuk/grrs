@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.1.7](https://github.com/takaiyuk/grrs/compare/v0.1.6...v0.1.7) - 2023-12-19
+- downgrade upload-artifact version by @takaiyuk in https://github.com/takaiyuk/grrs/pull/30
+
 ## [v0.1.6](https://github.com/takaiyuk/grrs/compare/v0.1.5...v0.1.6) - 2023-12-19
 - Hotfix/release workflow by @takaiyuk in https://github.com/takaiyuk/grrs/pull/28
 
