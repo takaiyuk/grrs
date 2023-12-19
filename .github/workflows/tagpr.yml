@@ -7,12 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: Songmu/tagpr@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        token: ${{ secrets.GH_PAT }}
     - uses: actions-rust-lang/setup-rust-toolchain@v1
     - name: Cargo check
       run: cargo check --all-features
+    - uses: Songmu/tagpr@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
     - name: Commit Cargo.lock
       run: |
         if git diff --name-only | grep Cargo.lock; then
