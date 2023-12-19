@@ -44,10 +44,10 @@ jobs:
 
       - name: Release to GitHub
         run: |
-          gh release upload ${{ GITHUB_REF_NAME }} ${{ steps.compile.outputs.BUILT_ARCHIVE }}
-          gh release upload ${{ GITHUB_REF_NAME }} ${{ steps.compile.outputs.BUILT_CHECKSUM }}
-          gh release upload ${{ GITHUB_REF_NAME }} ${{ steps.compile2.outputs.BUILT_ARCHIVE }}
-          gh release upload ${{ GITHUB_REF_NAME }} ${{ steps.compile2.outputs.BUILT_CHECKSUM }}
+          gh release upload ${{ github.ref_name }} ${{ steps.compile.outputs.BUILT_ARCHIVE }}
+          gh release upload ${{ github.ref_name  }} ${{ steps.compile.outputs.BUILT_CHECKSUM }}
+          gh release upload ${{ github.ref_name  }} ${{ steps.compile2.outputs.BUILT_ARCHIVE }}
+          gh release upload ${{ github.ref_name  }} ${{ steps.compile2.outputs.BUILT_CHECKSUM }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   publish:
