@@ -6,8 +6,8 @@ on:
       - 'v[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
-  release:
-    name: Release
+  upload-artifact:
+    name: Upload artifact
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -42,15 +42,14 @@ jobs:
             ${{ steps.compile2.outputs.BUILT_ARCHIVE }}
             ${{ steps.compile2.outputs.BUILT_CHECKSUM }}
 
-      - name: Release
+      - name: Release to GitHub
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           gh release upload ${{ github.ref }} ${{ steps.compile.outputs.BUILT_ARCHIVE }}
           gh release upload ${{ github.ref }} ${{ steps.compile.outputs.BUILT_CHECKSUM }}
           gh release upload ${{ github.ref }} ${{ steps.compile2.outputs.BUILT_ARCHIVE }}
           gh release upload ${{ github.ref }} ${{ steps.compile2.outputs.BUILT_CHECKSUM }}
-
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   publish:
     name: Publish to crates.io
     runs-on: ubuntu-latest
