@@ -19,7 +19,7 @@ jobs:
       # Only run tarpaulin if the commit message does not contain [tagpr]
       - name: Check commit message
         run: |
-          if git log -1 --pretty=%B | grep -q '[tagpr]'; then
+          git config --global --add safe.directory /__w/grrs/grrs && if git log -1 --pretty=%B | grep -q '[tagpr]'; then
             echo "Commit message contains [tagpr], skipping tarpaulin"
             exit 0
           fi
@@ -42,7 +42,7 @@ jobs:
       # Only run rustfmt if the commit message does not contain [tagpr]
       - name: Check commit message
         run: |
-          if git log -1 --pretty=%B | grep -q '[tagpr]'; then
+          git config --global --add safe.directory /__w/grrs/grrs && if git log -1 --pretty=%B | grep -q '[tagpr]'; then
             echo "Commit message contains [tagpr], skipping rustfmt"
             exit 0
           fi
@@ -62,7 +62,7 @@ jobs:
       # Only run clippy if the commit message does not contain [tagpr]
       - name: Check commit message
         run: |
-          if git log -1 --pretty=%B | grep -q '[tagpr]'; then
+          git config --global --add safe.directory /__w/grrs/grrs && if git log -1 --pretty=%B | grep -q '[tagpr]'; then
             echo "Commit message contains [tagpr], skipping clippy"
             exit 0
           fi
