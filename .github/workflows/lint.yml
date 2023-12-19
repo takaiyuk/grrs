@@ -10,6 +10,8 @@ jobs:
   # Run tests with tarpaulin
   test:
     name: cargo test
+    # Only run tarpaulin if the commit message does not contain [tagpr]
+    if: ! git log -1 --pretty=%B | grep -q '[tagpr]'
     runs-on: ubuntu-latest
     container:
       image: xd009642/tarpaulin:develop
@@ -29,6 +31,8 @@ jobs:
   # Check formatting with rustfmt
   formatting:
     name: cargo fmt
+    # Only run rustfmt if the commit message does not contain [tagpr]
+    if: ! git log -1 --pretty=%B | grep -q '[tagpr]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -42,6 +46,8 @@ jobs:
   # Check for clippy warnings
   clippy:
     name: cargo clippy
+    # Only run clippy if the commit message does not contain [tagpr]
+    if: ! git log -1 --pretty=%B | grep -q '[tagpr]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
